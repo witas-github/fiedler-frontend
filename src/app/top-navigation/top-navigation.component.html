@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+	<a class="navbar-brand" href="#"></a>
+	<button class="navbar-toggler hidden-sm" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false"
+	        aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbarsDefault">
+		<ul ngbNav #nav="ngbNav" class="navbar-nav mr-auto">
+			<li ngbNavItem>
+				<a class="nav-link" routerLink="protocols">Správa protokolů</a>
+				<ng-template ngbNavContent>
+					<app-protocols></app-protocols>
+				</ng-template>
+			</li>
+			<li ngbNavItem>
+				<a ngbNavLink>Správa serverů</a>
+				<ng-template ngbNavContent>Second content</ng-template>
+			</li>
+		</ul>
+	</div>
+</nav>
