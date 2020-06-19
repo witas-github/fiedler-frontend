@@ -7,14 +7,16 @@
 	<div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbarsDefault">
 		<ul ngbNav #nav="ngbNav" class="navbar-nav mr-auto">
 			<li ngbNavItem>
-				<a class="nav-link" routerLink="protocols">Správa protokolů</a>
+				<a class="nav-link" routerLink="protocols">Protokoly</a>
 				<ng-template ngbNavContent>
 					<app-protocols></app-protocols>
 				</ng-template>
 			</li>
 			<li ngbNavItem>
-				<a ngbNavLink>Správa serverů</a>
-				<ng-template ngbNavContent>Second content</ng-template>
+				<a class="nav-link" routerLink="servers">Nastavení serverů</a>
+				<ng-template ngbNavContent>
+					<app-servers></app-servers>
+				</ng-template>
 			</li>
 		</ul>
 	</div>

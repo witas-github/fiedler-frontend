@@ -9,8 +9,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProtocolDetailComponent } from './protocol-detail/protocol-detail.component';
 import { MessagesComponent } from './messages/messages.component';
 import { TopNavigationComponent } from './top-navigation/top-navigation.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServersComponent } from './servers/servers.component';
+import { ServerDetailComponent } from './server-detail/server-detail.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ServersComponent } from './servers/servers.component';
     MessagesComponent,
     TopNavigationComponent,
     ServersComponent,
+    ServerDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,6 +30,7 @@ import { ServersComponent } from './servers/servers.component';
     MatIconModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

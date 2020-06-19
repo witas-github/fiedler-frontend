@@ -9,3 +9,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .cursor-pointer{
   cursor:pointer;
 }
+
+.button-with-icon{
+  display: inline-flex;
+  align-items: flex-end;
+}
+
+.bg-gray{
+  background-color:#007bff;
+  color:white;
+}
+
+.btn{
+  border-radius: 0;
+}

@@ -19,7 +19,7 @@ export class ProtocolsComponent implements OnInit {
   }
 
   getProtocols(): void {
-    this.protocolService.getProtocols().subscribe(protocol => this.protocols = protocol);
+    ProtocolService.getProtocols().subscribe(protocol => this.protocols = protocol);
   }
 
 }

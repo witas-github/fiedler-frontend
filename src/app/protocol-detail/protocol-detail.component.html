@@ -3,8 +3,21 @@
 		<h1>Detail protokolu</h1>
 	</div>
 
-	<div class="form-row">
-		<label for="typeahead-basic">Search for a state:</label>
-		<input id="typeahead-basic" type="text" class="form-control" [(ngModel)]="selectedProtocol.name" />
-	</div>
+		<form [formGroup]="form" (ngSubmit)="submit()">
+			<div class="form-group">
+				<label for="protocolName">Název protokolu:</label>
+				<input formControlName="protocolName" type="text" class="form-control" [(ngModel)]="selectedProtocol.name" />
+
+				<label for="protocolServer">Server:</label>
+				<select formControlName="protocolServer" class="form-control">
+					<option disabled>Vyberte server</option>
+					<option *ngFor="let server of servers">{{server.name}}</option>
+				</select>
+				<div *ngIf="f.protocolServer.touched && f.protocolServer.invalid" class="alert alert-danger">
+					<div *ngIf="f.protocolServer.errors.required">Server is required.</div>
+				</div>
+			</div>
+			<button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
+		</form>
+
 </div>
