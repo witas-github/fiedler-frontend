@@ -10,6 +10,7 @@ import { ProtocolDetailComponent } from './protocol-detail/protocol-detail.compo
 import { MessagesComponent } from './messages/messages.component';
 import { TopNavigationComponent } from './top-navigation/top-navigation.component';
 import { FormsModule } from '@angular/forms';
+import { ServersComponent } from './servers/servers.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { FormsModule } from '@angular/forms';
     ProtocolDetailComponent,
     MessagesComponent,
     TopNavigationComponent,
+    ServersComponent,
   ],
   imports: [
     BrowserModule,
