@@ -12,6 +12,7 @@ import { TopNavigationComponent } from './top-navigation/top-navigation.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServersComponent } from './servers/servers.component';
 import { ServerDetailComponent } from './server-detail/server-detail.component';
+import { Server } from './interfaces/server';
 
 @NgModule({
   declarations: [

@@ -31,4 +31,33 @@
 		</div>
 	</form>
 
+	<div class="row mt-4">
+		<table class="table">
+			<thead class="bg-gray">
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Srn</th>
+				<th scope="col">Registrovaný server</th>
+				<th scope="col">Aktivní server</th>
+				<th scope="col">Status</th>
+				<th scope="col">Datum vytvoření</th>
+				<th scope="col"></th>
+			</tr>
+			</thead>
+			<tbody class="protocols">
+			<tr *ngFor="let device of devices">
+				<th scope="row">{{device.id}}</th>
+				<td>{{device.srn}}</td>
+				<td>{{getServer(device.regServer).name}}</td>
+				<td>{{getServer(device.activeServer).name}}</td>
+				<td>{{device.state}}</td>
+				<td>{{device.date | date}}</td>
+				<td>
+					<mat-icon class="mr-2 cursor-pointer" aria-hidden="false" aria-label="Upravit protokol" routerLink="/protocol-detail/{{device.id}}">edit</mat-icon>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+
 </div>
