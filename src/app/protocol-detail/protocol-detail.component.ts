@@ -7,6 +7,7 @@ import { ServerService } from '../services/server.service';
 import { Server } from '../interfaces/server';
 import { Device } from '../interfaces/device';
 import { DeviceService } from '../services/device.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-protocol-detail',
@@ -27,17 +28,20 @@ export class ProtocolDetailComponent implements OnInit {
   }
 
   selectedProtocol: Protocol;
+  selectedServer: Server;
   servers: Server[];
   devices: Device[];
-  form = new FormGroup({
-    protocolName: new FormControl('', Validators.required),
-    protocolServer: new FormControl('', Validators.nullValidator),
-  });
+  form: FormGroup;
 
   ngOnInit(): void {
     this.setSelectedProtocol();
     this.getServers();
     this.getDevices();
+
+    this.form = new FormGroup({
+      protocolName: new FormControl(this.selectedProtocol.name, Validators.required),
+      protocolServer: new FormControl('', Validators.nullValidator),
+    });
   }
 
   private setSelectedProtocol() {
@@ -45,7 +49,7 @@ export class ProtocolDetailComponent implements OnInit {
     if (id == null) {
       this.selectedProtocol = {id: null, name: 'Nový protokol', activeSrv: null, date: null};
     } else {
-      this.selectedProtocol = this.protocolService.getProtocol(Number(id));
+      this.protocolService.getProtocol(Number(id)).subscribe(protocol => this.selectedProtocol = protocol);
     }
   }
 
@@ -54,11 +58,12 @@ export class ProtocolDetailComponent implements OnInit {
   }
 
   getServer(id): Server {
-    return this.serverService.getServer(id);
+    this.serverService.getServer(id).subscribe(s => this.selectedServer = s);
+    return this.selectedServer;
   }
 
   private getDevices() {
-    this.devices = this.deviceService.getByProtocol(this.selectedProtocol.id);
+    this.deviceService.getByProtocol(this.selectedProtocol.id).subscribe(devices => this.devices = devices);
   }
 
   submit() {

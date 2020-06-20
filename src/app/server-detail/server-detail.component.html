@@ -14,13 +14,13 @@
 	<form [formGroup]="form" (ngSubmit)="submit()">
 		<div class="form-group">
 			<label for="serverName">Název protokolu:</label>
-			<input id="serverName" formControlName="serverName" type="text" class="form-control" [(ngModel)]="selectedServer.name"/>
+			<input id="serverName" formControlName="serverName" type="text" class="form-control" />
 			<div *ngIf="f.serverName.touched && f.serverName.invalid" class="alert alert-danger">
 				<div *ngIf="f.serverName.errors.required">Je požadován název.</div>
 			</div>
 
 			<label for="serverUrl">Url serveru:</label>
-			<input id="serverUrl" formControlName="serverUrl" type="text" class="form-control" [(ngModel)]="selectedServer.url"/>
+			<input id="serverUrl" formControlName="serverUrl" type="text" class="form-control" />
 			<div *ngIf="f.serverUrl.touched && f.serverUrl.invalid" class="alert alert-danger">
 				<div *ngIf="f.serverUrl.errors.required">Je požadován název.</div>
 			</div>

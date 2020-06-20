@@ -14,8 +14,8 @@ export class ServerService {
     return of(Servers);
   }
 
-  public getServer(id): Server {
-    return Servers.find(x => x.id === id);
+  public getServer(id): Observable<Server> {
+    return of(Servers.find(x => x.id === id));
   }
 
   public initServer(){

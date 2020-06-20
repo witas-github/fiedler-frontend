@@ -13,7 +13,7 @@
 	<form [formGroup]="form" (ngSubmit)="submit()">
 		<div class="form-group">
 			<label for="protocolName">Název protokolu:</label>
-			<input id="protocolName" formControlName="protocolName" type="text" class="form-control" [(ngModel)]="selectedProtocol.name"/>
+			<input id="protocolName" formControlName="protocolName" type="text" class="form-control"/>
 			<label for="protocolServer">Server:</label>
 			<select id="protocolServer" formControlName="protocolServer" class="form-control">
 				<option *ngFor="let server of servers">{{server.name}}</option>
@@ -24,40 +24,47 @@
 		</div>
 
 		<div class="row mt-4">
-			<button class="btn btn-primary button-with-icon ml-auto mr-3 button-with-icon" type="submit" [disabled]="!form.valid">
-				<mat-icon class="mr-2" aria-hidden="false" aria-label="Přidat protokol">save</mat-icon>
-				Uložit
-			</button>
+			<table class="table">
+				<thead class="bg-gray">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Srn</th>
+					<th scope="col">Registrovaný server</th>
+					<th scope="col">Aktivní server</th>
+					<th scope="col">Status</th>
+					<th scope="col"></th>
+				</tr>
+				</thead>
+				<tbody class="protocols">
+				<tr *ngFor="let device of devices">
+					<th scope="row">{{device.id}}</th>
+					<td>{{device.srn}}</td>
+					<td>{{getServer(device.regServer).name}}</td>
+					<td>{{getServer(device.activeServer).name}}</td>
+					<td>{{device.state}}</td>
+					<td>
+						<!--					<mat-icon class="mr-2 cursor-pointer" aria-hidden="false" aria-label="Upravit protokol" routerLink="/protocol-detail/{{device.id}}">edit</mat-icon>-->
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+
+
+		<div class="row mt-4">
+			<div class="btn-group mr-2 ml-auto mr-3" role="group" aria-label="First group">
+				<button class="btn btn-primary button-with-icon button-with-icon mr-2" type="submit" [disabled]="!form.valid">
+					<mat-icon class="mr-2" aria-hidden="false" aria-label="Přidat zařízení">my_library_add</mat-icon>
+					Přidat zařízení
+				</button>
+
+				<button class="btn btn-primary button-with-icon button-with-icon" type="submit" [disabled]="!form.valid">
+					<mat-icon class="mr-2" aria-hidden="false" aria-label="Uložit">save</mat-icon>
+					Uložit
+				</button>
+			</div>
 		</div>
 	</form>
 
-	<div class="row mt-4">
-		<table class="table">
-			<thead class="bg-gray">
-			<tr>
-				<th scope="col">#</th>
-				<th scope="col">Srn</th>
-				<th scope="col">Registrovaný server</th>
-				<th scope="col">Aktivní server</th>
-				<th scope="col">Status</th>
-				<th scope="col">Datum vytvoření</th>
-				<th scope="col"></th>
-			</tr>
-			</thead>
-			<tbody class="protocols">
-			<tr *ngFor="let device of devices">
-				<th scope="row">{{device.id}}</th>
-				<td>{{device.srn}}</td>
-				<td>{{getServer(device.regServer).name}}</td>
-				<td>{{getServer(device.activeServer).name}}</td>
-				<td>{{device.state}}</td>
-				<td>{{device.date | date}}</td>
-				<td>
-					<mat-icon class="mr-2 cursor-pointer" aria-hidden="false" aria-label="Upravit protokol" routerLink="/protocol-detail/{{device.id}}">edit</mat-icon>
-				</td>
-			</tr>
-			</tbody>
-		</table>
-	</div>
 
 </div>

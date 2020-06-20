@@ -14,8 +14,8 @@ export class ProtocolService {
     return of(Protocols);
   }
 
-  public getProtocol(id): Protocol {
-    return Protocols.find(x => x.id === id);
+  public getProtocol(id): Observable<Protocol> {
+    return of(Protocols.find(x => x.id === id));
   }
 
   public initProtocol(){

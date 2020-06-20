@@ -18,8 +18,8 @@ export class DeviceService {
     return Devices.find(device => device.id === id);
   }
 
-  public getByProtocol(id): Device[] {
-    return Devices.filter(device => device.protocolId === id);
+  public getByProtocol(id): Observable<Device[]> {
+    return of(Devices.filter(device => device.protocolId === id));
   }
 
   public initDevice(){

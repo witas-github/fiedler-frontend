@@ -13,6 +13,7 @@ import { Server } from '../interfaces/server';
 export class ProtocolsComponent implements OnInit {
 
   protocols: Protocol[];
+  selectedServer: Server;
 
   constructor(private protocolService: ProtocolService, private serverService: ServerService) {
   }
@@ -26,7 +27,8 @@ export class ProtocolsComponent implements OnInit {
   }
 
   getServer(id): Server {
-    return this.serverService.getServer(id);
+    this.serverService.getServer(id).subscribe(s => this.selectedServer = s);
+    return this.selectedServer;
   }
 
 }

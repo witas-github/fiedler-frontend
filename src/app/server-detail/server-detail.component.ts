@@ -19,22 +19,27 @@ export class ServerDetailComponent implements OnInit {
   }
 
   selectedServer: Server;
-  form = new FormGroup({
-    serverName: new FormControl('', Validators.required),
-    serverUrl: new FormControl('', Validators.required),
-  });
+  form: FormGroup;
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id == null){
-      this.selectedServer = {id: null, name: 'Nový server', url: null, date: null};
-    } else {
-      this.selectedServer = this.serverService.getServer(Number(id));
-    }
+    this.setSelectedServer();
+    this.form = new FormGroup({
+      serverName: new FormControl(this.selectedServer.name, Validators.required),
+      serverUrl: new FormControl(this.selectedServer.url, Validators.required),
+    });
   }
 
   submit() {
     console.log(this.form.value);
+  }
+
+  private setSelectedServer(){
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id == null){
+      this.selectedServer = {id: null, name: 'Nový server', url: null, date: null};
+    } else {
+      this.serverService.getServer(Number(id)).subscribe(s => this.selectedServer = s);
+    }
   }
 
 }

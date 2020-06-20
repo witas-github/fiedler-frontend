@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServersComponent } from './servers/servers.component';
 import { ServerDetailComponent } from './server-detail/server-detail.component';
 import { Server } from './interfaces/server';
+import { DevicesComponent } from './devices/devices.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { Server } from './interfaces/server';
     TopNavigationComponent,
     ServersComponent,
     ServerDetailComponent,
+    DevicesComponent,
   ],
   imports: [
     BrowserModule,
