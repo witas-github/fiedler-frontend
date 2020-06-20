@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Protocol } from '../interfaces/protocol';
-import { ProtocolService } from './protocol.service';
+import { ProtocolService } from '../services/protocol.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ServerService } from '../server-detail/server.service';
+import { ServerService } from '../services/server.service';
 import { Server } from '../interfaces/server';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-protocol-detail',

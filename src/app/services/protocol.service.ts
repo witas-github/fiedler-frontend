@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Protocols } from '../protocols/mock-protocols';
+import { Protocols } from '../mock/mock-protocols';
 import { Protocol } from '../interfaces/protocol';
 import { Observable, of } from 'rxjs';
 

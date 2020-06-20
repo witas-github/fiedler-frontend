@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Servers } from '../servers/mock-servers';
+import { Servers } from '../mock/mock-servers';
 import { Server } from '../interfaces/server';
 import { Observable, of } from 'rxjs';
 

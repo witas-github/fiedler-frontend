@@ -11,11 +11,26 @@
 		<h1>Detail nastavení serveru</h1>
 	</div>
 
-	<div class="form-row">
-		<label for="server-name">Název serveru:</label>
-		<input id="server-name" type="text" class="form-control" [(ngModel)]="selectedServer.name" />
+	<form [formGroup]="form" (ngSubmit)="submit()">
+		<div class="form-group">
+			<label for="serverName">Název protokolu:</label>
+			<input id="serverName" formControlName="serverName" type="text" class="form-control" [(ngModel)]="selectedServer.name"/>
+			<div *ngIf="f.serverName.touched && f.serverName.invalid" class="alert alert-danger">
+				<div *ngIf="f.serverName.errors.required">Je požadován název.</div>
+			</div>
 
-		<label for="server-url">Název serveru:</label>
-		<input id="server-url" type="text" class="form-control" [(ngModel)]="selectedServer.url" />
-	</div>
+			<label for="serverUrl">Url serveru:</label>
+			<input id="serverUrl" formControlName="serverUrl" type="text" class="form-control" [(ngModel)]="selectedServer.url"/>
+			<div *ngIf="f.serverUrl.touched && f.serverUrl.invalid" class="alert alert-danger">
+				<div *ngIf="f.serverUrl.errors.required">Je požadován název.</div>
+			</div>
+		</div>
+
+		<div class="row mt-4">
+			<button class="btn btn-primary button-with-icon ml-auto mr-3 button-with-icon" type="submit" [disabled]="!form.valid">
+				<mat-icon class="mr-2" aria-hidden="false" aria-label="Přidat protokol">save</mat-icon>
+				Uložit
+			</button>
+		</div>
+	</form>
 </div>

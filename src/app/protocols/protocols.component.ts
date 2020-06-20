@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Protocol } from '../interfaces/protocol';
-import { ProtocolService } from '../protocol-detail/protocol.service';
-import { ServerService } from '../server-detail/server.service';
+import { ProtocolService } from '../services/protocol.service';
+import { ServerService } from '../services/server.service';
 import { Server } from '../interfaces/server';
 
 

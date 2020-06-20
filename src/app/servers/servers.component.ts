@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Server } from '../interfaces/server';
-import { ServerService } from '../server-detail/server.service';
+import { ServerService } from '../services/server.service';
 
 @Component({
   selector: 'app-servers',
