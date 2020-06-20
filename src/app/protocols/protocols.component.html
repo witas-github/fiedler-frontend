@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" >
 	<div class="row mt-3">
 		<h1>Protokoly</h1>
 	</div>
@@ -17,12 +17,10 @@
 			<tr *ngFor="let protocol of protocols">
 				<th scope="row">{{protocol.id}}</th>
 				<td>{{protocol.name}}</td>
-				<td>{{protocol.activeSrv}}</td>
+				<td>{{getServer(protocol.activeSrv).name}}</td>
 				<td>{{protocol.date | date}}</td>
 				<td>
-<!--					<a class="btn btn-primary ml-auto mr-0 button-with-icon" routerLink="/protocol-detail/{{protocol.id}}" role="button">-->
-						<mat-icon class="mr-2 cursor-pointer" aria-hidden="false" aria-label="Upravit protokol" routerLink="/protocol-detail/{{protocol.id}}">edit</mat-icon>
-<!--					</a>-->
+					<mat-icon class="mr-2 cursor-pointer" aria-hidden="false" aria-label="Upravit protokol" routerLink="/protocol-detail/{{protocol.id}}">edit</mat-icon>
 				</td>
 			</tr>
 			</tbody>
@@ -30,7 +28,8 @@
 	</div>
 </div>
 
-<div class="container-fluid">
+<!--<div class="container-fluid d-sm-none d-block">-->
+	<div class="container-fluid">
 	<div class="row mt-3">
 		<a class="btn btn-primary ml-auto mr-0 button-with-icon" routerLink="/create-protocol" role="button">
 			<mat-icon class="mr-2" aria-hidden="false" aria-label="Přidat protokol">add</mat-icon>

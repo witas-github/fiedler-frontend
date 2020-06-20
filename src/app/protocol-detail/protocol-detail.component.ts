@@ -26,7 +26,7 @@ export class ProtocolDetailComponent implements OnInit {
   servers: Server[];
   form = new FormGroup({
     protocolName: new FormControl('', Validators.required),
-    protocolServer: new FormControl('', Validators.required),
+    protocolServer: new FormControl('', Validators.nullValidator),
   });
 
   ngOnInit(): void {

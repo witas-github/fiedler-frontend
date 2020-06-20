@@ -1,23 +1,38 @@
 <div class="container-fluid">
 	<div class="row mt-3">
+		<a class="btn btn-secondary mr-0 mr-auto button-with-icon" routerLink="/protocols" role="button">
+			<mat-icon class="mr-2" aria-hidden="false" aria-label="Přidat protokol">undo</mat-icon>
+			Zpět</a>
+	</div>
+</div>
+<div class="container-fluid">
+	<div class="row mt-4">
 		<h1>Detail protokolu</h1>
 	</div>
 
-		<form [formGroup]="form" (ngSubmit)="submit()">
-			<div class="form-group">
-				<label for="protocolName">Název protokolu:</label>
-				<input formControlName="protocolName" type="text" class="form-control" [(ngModel)]="selectedProtocol.name" />
-
-				<label for="protocolServer">Server:</label>
-				<select formControlName="protocolServer" class="form-control">
-					<option disabled>Vyberte server</option>
-					<option *ngFor="let server of servers">{{server.name}}</option>
-				</select>
-				<div *ngIf="f.protocolServer.touched && f.protocolServer.invalid" class="alert alert-danger">
-					<div *ngIf="f.protocolServer.errors.required">Server is required.</div>
-				</div>
+	<form [formGroup]="form" (ngSubmit)="submit()">
+		<div class="form-group">
+			<label for="protocolName">Název protokolu:</label>
+			<input formControlName="protocolName" type="text" class="form-control" [(ngModel)]="selectedProtocol.name"/>
+			<label for="protocolServer">Server:</label>
+			<select formControlName="protocolServer" class="form-control">
+				<option *ngFor="let server of servers">{{server.name}}</option>
+			</select>
+			<div *ngIf="f.protocolName.touched && f.protocolName.invalid" class="alert alert-danger">
+				<div *ngIf="f.protocolName.errors.required">Je požadován název.</div>
 			</div>
-			<button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
-		</form>
+
+		</div>
+
+		<div class="row mt-4">
+			<button class="btn btn-primary button-with-icon ml-auto mr-3 button-with-icon" type="submit" [disabled]="!form.valid">
+				<mat-icon class="mr-2" aria-hidden="false" aria-label="Přidat protokol">save</mat-icon>
+				Uložit
+			</button>
+		</div>
+
+
+
+	</form>
 
 </div>

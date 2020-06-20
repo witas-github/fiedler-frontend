@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Protocol } from '../interfaces/protocol';
 import { ProtocolService } from '../protocol-detail/protocol.service';
+import { ServerService } from '../server-detail/server.service';
+import { Server } from '../interfaces/server';
+
 
 @Component({
   selector: 'app-protocols',
@@ -11,7 +14,7 @@ export class ProtocolsComponent implements OnInit {
 
   protocols: Protocol[];
 
-  constructor(private protocolService: ProtocolService) {
+  constructor(private protocolService: ProtocolService, private serverService: ServerService) {
   }
 
   ngOnInit(): void {
@@ -19,7 +22,11 @@ export class ProtocolsComponent implements OnInit {
   }
 
   getProtocols(): void {
-    ProtocolService.getProtocols().subscribe(protocol => this.protocols = protocol);
+    this.protocolService.getProtocols().subscribe(protocol => this.protocols = protocol);
+  }
+
+  getServer(id): Server {
+    return this.serverService.getServer(id);
   }
 
 }

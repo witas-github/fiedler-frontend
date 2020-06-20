@@ -10,7 +10,7 @@ export class ProtocolService {
 
   constructor() { }
 
-  public static getProtocols(): Observable<Protocol[]> {
+  public getProtocols(): Observable<Protocol[]> {
     return of(Protocols);
   }
 
