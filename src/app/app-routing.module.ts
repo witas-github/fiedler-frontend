@@ -4,6 +4,8 @@ import { ProtocolDetailComponent } from './protocol-detail/protocol-detail.compo
 import { ProtocolsComponent } from './protocols/protocols.component';
 import { ServersComponent } from './servers/servers.component';
 import { ServerDetailComponent } from './server-detail/server-detail.component';
+import { DevicesComponent } from './devices/devices.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 const routes: Routes = [
@@ -18,7 +20,9 @@ const routes: Routes = [
 
   { path: 'protocols', component: ProtocolsComponent },
   { path: 'servers', component: ServersComponent },
+  { path: 'devices/:protocolId', component: DevicesComponent },
 
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

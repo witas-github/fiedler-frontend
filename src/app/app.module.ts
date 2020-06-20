@@ -14,6 +14,7 @@ import { ServersComponent } from './servers/servers.component';
 import { ServerDetailComponent } from './server-detail/server-detail.component';
 import { Server } from './interfaces/server';
 import { DevicesComponent } from './devices/devices.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { DevicesComponent } from './devices/devices.component';
     ServersComponent,
     ServerDetailComponent,
     DevicesComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

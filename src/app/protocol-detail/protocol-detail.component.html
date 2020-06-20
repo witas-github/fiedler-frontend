@@ -52,13 +52,12 @@
 
 
 		<div class="row mt-4">
-			<div class="btn-group mr-2 ml-auto mr-3" role="group" aria-label="First group">
-				<button class="btn btn-primary button-with-icon button-with-icon mr-2" type="submit" [disabled]="!form.valid">
+			<div class="btn-group mr-0 ml-auto" role="group" aria-label="First group">
+				<a class="btn btn-primary mr-2 button-with-icon" routerLink="/devices/{{selectedProtocol.id}}" role="button">
 					<mat-icon class="mr-2" aria-hidden="false" aria-label="Přidat zařízení">my_library_add</mat-icon>
-					Přidat zařízení
-				</button>
+					Přidat zařízení</a>
 
-				<button class="btn btn-primary button-with-icon button-with-icon" type="submit" [disabled]="!form.valid">
+				<button class="btn btn-primary button-with-icon " type="submit" [disabled]="!form.valid">
 					<mat-icon class="mr-2" aria-hidden="false" aria-label="Uložit">save</mat-icon>
 					Uložit
 				</button>
