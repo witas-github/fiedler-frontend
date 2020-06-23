@@ -12,9 +12,9 @@ import { TopNavigationComponent } from './top-navigation/top-navigation.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServersComponent } from './servers/servers.component';
 import { ServerDetailComponent } from './server-detail/server-detail.component';
-import { Server } from './interfaces/server';
 import { DevicesComponent } from './devices/devices.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     MatIconModule,
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ZXingScannerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
