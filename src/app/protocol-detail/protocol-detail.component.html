@@ -1,16 +1,27 @@
 <div class="container-fluid">
 	<div class="row mt-3">
-		<a class="btn btn-secondary mr-0 mr-auto button-with-icon" routerLink="/protocols" role="button">
-			<mat-icon class="mr-2" aria-hidden="false" aria-label="Přidat protokol">undo</mat-icon>
-			Zpět</a>
+		<div class="btn-group ml-0 mr-auto" role="group" aria-label="First group">
+			<a class="btn btn-secondary ml-0 mr-2 button-with-icon" routerLink="/protocols" role="button">
+				<mat-icon class="mr-2" aria-hidden="false" aria-label="Přidat protokol">undo</mat-icon>
+				Zpět</a>
+
+			<button class="btn btn-primary button-with-icon ml-0 mr-2" type="submit" [disabled]="!form.valid">
+				<mat-icon class="mr-2" aria-hidden="false" aria-label="Uložit">save</mat-icon>
+				Uložit
+			</button>
+
+			<a class="btn btn-primary ml-0 button-with-icon d-none d-lg-inline-flex" routerLink="/devices/{{selectedProtocol.id}}" role="button">
+				<mat-icon class="mr-2" aria-hidden="false" aria-label="Přidat zařízení">my_library_add</mat-icon>
+				Přidat zařízení</a>
+		</div>
 	</div>
 </div>
 <div class="container-fluid">
-	<div class="row mt-4">
+	<div class="row mt-3 mt-lg-3 mb-lg-0 border-bottom">
 		<h1>Detail protokolu</h1>
 	</div>
 
-	<form [formGroup]="form" (ngSubmit)="submit()">
+	<form class="mt-2" [formGroup]="form" (ngSubmit)="submit()">
 		<div class="form-group">
 			<label for="protocolName">Název protokolu:</label>
 			<input id="protocolName" formControlName="protocolName" type="text" class="form-control"/>
@@ -27,21 +38,17 @@
 			<table class="table">
 				<thead class="bg-gray">
 				<tr>
-					<th scope="col">#</th>
 					<th scope="col">Srn</th>
 					<th scope="col">Registrovaný server</th>
 					<th scope="col">Aktivní server</th>
-					<th scope="col">Status</th>
 					<th scope="col"></th>
 				</tr>
 				</thead>
 				<tbody class="protocols">
 				<tr *ngFor="let device of devices">
-					<th scope="row">{{device.id}}</th>
 					<td>{{device.srn}}</td>
 					<td>{{getServer(device.regServer).name}}</td>
 					<td>{{getServer(device.activeServer).name}}</td>
-					<td>{{device.state}}</td>
 					<td>
 						<!--					<mat-icon class="mr-2 cursor-pointer" aria-hidden="false" aria-label="Upravit protokol" routerLink="/protocol-detail/{{device.id}}">edit</mat-icon>-->
 					</td>
@@ -50,20 +57,12 @@
 			</table>
 		</div>
 
-
-		<div class="row mt-4">
-			<div class="btn-group mr-0 ml-auto" role="group" aria-label="First group">
-				<a class="btn btn-primary mr-2 button-with-icon" routerLink="/devices/{{selectedProtocol.id}}" role="button">
-					<mat-icon class="mr-2" aria-hidden="false" aria-label="Přidat zařízení">my_library_add</mat-icon>
-					Přidat zařízení</a>
-
-				<button class="btn btn-primary button-with-icon " type="submit" [disabled]="!form.valid">
-					<mat-icon class="mr-2" aria-hidden="false" aria-label="Uložit">save</mat-icon>
-					Uložit
-				</button>
-			</div>
-		</div>
 	</form>
+</div>
 
-
+<div class="container-fluid d-lg-none fixed-bottom">
+	<div class="row mb-3 mr-0">
+		<a class="btn btn-primary ml-auto mr-0 button-with-icon" routerLink="/devices/{{selectedProtocol.id}}" role="button">
+			<mat-icon class="" aria-hidden="false" aria-label="Přidat zařízení">add</mat-icon></a>
+	</div>
 </div>

@@ -5,15 +5,15 @@
 		<span class="navbar-toggler-icon"></span>
 	</button>
 	<div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbarsDefault">
-		<ul ngbNav #nav="ngbNav" class="navbar-nav mr-auto">
-			<li ngbNavItem>
-				<a class="nav-link" routerLink="protocols">Protokoly</a>
+		<ul ngbNav #nav="ngbNav" class="navbar-nav mr-auto mt-3 mt-lg-0">
+			<li ngbNavItem (click)="isNavbarCollapsed = !isNavbarCollapsed">
+				<a class="nav-link float-right" routerLink="protocols">Protokoly</a>
 				<ng-template ngbNavContent>
 					<app-protocols></app-protocols>
 				</ng-template>
 			</li>
-			<li ngbNavItem>
-				<a class="nav-link" routerLink="servers">Nastavení serverů</a>
+			<li ngbNavItem (click)="isNavbarCollapsed = !isNavbarCollapsed">
+				<a class="nav-link float-right" routerLink="servers">Nastavení serverů</a>
 				<ng-template ngbNavContent>
 					<app-servers></app-servers>
 				</ng-template>

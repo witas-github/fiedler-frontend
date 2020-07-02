@@ -22,9 +22,17 @@ export class DeviceService {
     return of(Devices.filter(device => device.protocolId === id));
   }
 
+  public getBySrn(srn): Device {
+    return Devices.find(device => device.srn === srn);
+  }
+
   public initDevice(){
     // const device: Device = { id: null, name: 'Nový protokol', activeSrv: null, date: new Date() };
     // return device;
+  }
+
+  public addIntoList(device: Device){
+    Devices.push(device);
   }
 
 }

@@ -1,3 +1,21 @@
-<p>devices works!</p>
+<!--<header>-->
+<!--	<form>-->
+<!--		<select (change)="onDeviceSelectChange($event.target.value)">-->
+<!--			<option value="" [selected]="!currentDevice">No Device Selected</option>-->
+<!--			<option *ngFor="let device of availableDevices" [value]="device.deviceId"-->
+<!--			        [selected]="currentDevice && device.deviceId === currentDevice.deviceId">{{device.label}}</option>-->
+<!--		</select>-->
+<!--	</form>-->
+<!--</header>-->
 
-<zxing-scanner ></zxing-scanner>
+<zxing-scanner  [autofocusEnabled]="true" [autostart]="false" [enable]="true"  [torch]="torchEnabled" (scanSuccess)="onCodeResult($event)"
+               [formats]="formatsEnabled" [tryHarder]="tryHarder" (permissionResponse)="onHasPermission($event)"
+               (camerasFound)="onCamerasFound($event)" [(device)]="currentDevice" (torchCompatible)="onTorchCompatible($event)"></zxing-scanner>
+
+<section class="results" *ngIf="qrResultString">
+	<div>
+		<small>Result</small>
+		<strong>{{ qrResultString }}</strong>
+	</div>
+	<button mat-icon-button (click)="clearResult()">&times;</button>
+</section>

@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, VERSION, ViewChild } from '@angular/core';
 import { Protocol } from '../interfaces/protocol';
 import { ProtocolService } from '../services/protocol.service';
 import { ActivatedRoute } from '@angular/router';
-import { BarcodeFormat } from '@zxing/library';
+import { BarcodeFormat, Result } from '@zxing/library';
 import { BehaviorSubject } from 'rxjs';
-
+import { ZXingScannerComponent } from '@zxing/ngx-scanner';
+import { Device } from '../interfaces/device';
+import { DeviceService } from '../services/device.service';
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-devices',
@@ -12,14 +15,17 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./devices.component.scss'],
 })
 export class DevicesComponent implements OnInit {
-
   constructor(
     private protocolService: ProtocolService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private deviceService: DeviceService,
+    private messageService: MessageService,
   ) {
   }
 
+  scanner: ZXingScannerComponent;
   selectedProtocol: Protocol;
+  selectedDevices: Device[] = [];
 
   formatsEnabled: BarcodeFormat[] = [
     BarcodeFormat.CODE_128,
@@ -53,17 +59,38 @@ export class DevicesComponent implements OnInit {
   onCamerasFound(devices: MediaDeviceInfo[]): void {
     this.availableDevices = devices;
     this.hasDevices = Boolean(devices && devices.length);
+
+    devices.forEach((device) => {
+      if (device.label.includes('back') || device.label.includes('1') || device.label.includes('rear')) {
+        this.currentDevice = device;
+      }
+    });
+
+    if (this.currentDevice == null) {
+      this.currentDevice = devices[0];
+    }
+
   }
 
   onCodeResult(resultString: string) {
     this.qrResultString = resultString;
+    const device: Device = this.deviceService.getBySrn(resultString);
+
+    if (!this.selectedDevices.find(x => x.id === device.id)) {
+      device.protocolId = this.selectedProtocol.id;
+      this.selectedDevices.push(device);
+      this.deviceService.addIntoList(device);
+      this.messageService.add(device.srn + ' added into list');
+    }
+
+    console.log(this.selectedDevices);
+
   }
 
   onDeviceSelectChange(selected: string) {
     const device = this.availableDevices.find(x => x.deviceId === selected);
     this.currentDevice = device || null;
   }
-
 
   onHasPermission(has: boolean) {
     this.hasPermission = has;

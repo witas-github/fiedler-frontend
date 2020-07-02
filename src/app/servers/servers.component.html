@@ -6,7 +6,6 @@
 		<table class="table">
 			<thead class="bg-gray">
 			<tr>
-				<th scope="col">#</th>
 				<th scope="col">Název</th>
 				<th scope="col">Url</th>
 				<th scope="col"></th>
@@ -14,7 +13,6 @@
 			</thead>
 			<tbody class="protocols">
 			<tr *ngFor="let server of servers">
-				<th scope="row">{{server.id}}</th>
 				<td>{{server.name}}</td>
 				<td>{{server.url}}</td>
 				<td>
@@ -28,11 +26,10 @@
 	</div>
 </div>
 
-<div class="container-fluid">
-	<div class="row mt-3">
+<div class="container-fluid d-lg-none fixed-bottom">
+	<div class="row mb-3 mr-0">
 		<a class="btn btn-primary ml-auto mr-0 button-with-icon" routerLink="/create-server" role="button">
-			<mat-icon class="mr-2" aria-hidden="false" aria-label="Přidat protokol">add</mat-icon>
-			Přidat server</a>
+			<mat-icon class="" aria-hidden="false" aria-label="Přidat server">add</mat-icon></a>
 	</div>
 </div>
 
