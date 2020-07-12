@@ -8,6 +8,8 @@ import { Server } from '../interfaces/server';
 import { Device } from '../interfaces/device';
 import { DeviceService } from '../services/device.service';
 import { Observable } from 'rxjs';
+import { Req } from '../interfaces/req';
+
 
 @Component({
   selector: 'app-protocol-detail',
@@ -63,7 +65,9 @@ export class ProtocolDetailComponent implements OnInit {
   }
 
   private getDevices() {
-    this.deviceService.getByProtocol(this.selectedProtocol.id).subscribe(devices => this.devices = devices);
+    this.deviceService.getByProtocol(this.selectedProtocol.id).subscribe((data: any)=>{
+      this.devices = data.data;
+    });
   }
 
   submit() {

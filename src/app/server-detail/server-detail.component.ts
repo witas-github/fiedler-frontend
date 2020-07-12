@@ -30,7 +30,7 @@ export class ServerDetailComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.form.value);
+    //console.log(this.form.value);
   }
 
   private setSelectedServer(){

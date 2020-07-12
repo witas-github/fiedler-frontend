@@ -15,6 +15,8 @@ import { ServerDetailComponent } from './server-detail/server-detail.component';
 import { DevicesComponent } from './devices/devices.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     FormsModule,
     ReactiveFormsModule,
     ZXingScannerModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

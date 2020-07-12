@@ -2,13 +2,21 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Device } from '../interfaces/device';
 import { Devices } from '../mock/mock-devices';
+import { ConfigService } from './config.service';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class DeviceService {
 
-  constructor() { }
+  devices: any;
+
+
+  constructor(private configService: ConfigService, private http: HttpClient
+  ) { }
 
   public getDevices(): Observable<Device[]> {
     return of(Devices);
@@ -18,8 +26,13 @@ export class DeviceService {
     return Devices.find(device => device.id === id);
   }
 
+
   public getByProtocol(id): Observable<Device[]> {
-    return of(Devices.filter(device => device.protocolId === id));
+
+    return this.http.get<Device[]>(this.configService.getConfig().backendUrl + 'devices/' + id).pipe(map((response: any) => response));
+
+    //return of(this.http.get(this.configService.getConfig().backendUrl + '/devices'));
+    //return of(Devices.filter(device => device.protocolId === id));
   }
 
   public getBySrn(srn): Device {

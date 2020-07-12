@@ -83,7 +83,7 @@ export class DevicesComponent implements OnInit {
       this.messageService.add(device.srn + ' added into list');
     }
 
-    console.log(this.selectedDevices);
+    //console.log(this.selectedDevices);
 
   }
 
