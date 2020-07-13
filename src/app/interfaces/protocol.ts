@@ -1,5 +1,5 @@
 export interface Protocol{
-  id: number;
+  _id: string;
   name: string;
   activeSrv: number;
   date: any;

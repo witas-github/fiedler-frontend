@@ -49,7 +49,7 @@ export class DevicesComponent implements OnInit {
 
   private setSelectedProtocol() {
     const protocolId = this.route.snapshot.paramMap.get('protocolId');
-    this.protocolService.getProtocol(Number(protocolId)).subscribe(protocol => this.selectedProtocol = protocol);
+    this.protocolService.getProtocol(protocolId).subscribe(protocol => this.selectedProtocol = protocol);
   }
 
   clearResult(): void {
@@ -74,10 +74,10 @@ export class DevicesComponent implements OnInit {
 
   onCodeResult(resultString: string) {
     this.qrResultString = resultString;
-    const device: Device = this.deviceService.getBySrn(resultString);
+    const device: any = this.deviceService.getBySrn(resultString);
 
     if (!this.selectedDevices.find(x => x.id === device.id)) {
-      device.protocolId = this.selectedProtocol.id;
+      device.protocolId = this.selectedProtocol._id;
       this.selectedDevices.push(device);
       this.deviceService.addIntoList(device);
       this.messageService.add(device.srn + ' added into list');

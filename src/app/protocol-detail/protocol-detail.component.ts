@@ -7,7 +7,7 @@ import { ServerService } from '../services/server.service';
 import { Server } from '../interfaces/server';
 import { Device } from '../interfaces/device';
 import { DeviceService } from '../services/device.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Req } from '../interfaces/req';
 
 
@@ -30,33 +30,40 @@ export class ProtocolDetailComponent implements OnInit {
   }
 
   selectedProtocol: Protocol;
+
   selectedServer: Server;
   servers: Server[];
   devices: Device[];
   form: FormGroup;
 
   ngOnInit(): void {
-    this.setSelectedProtocol();
     this.getServers();
-    this.getDevices();
+    this.setSelectedProtocol();
+  }
 
+  private createFrom(){
     this.form = new FormGroup({
       protocolName: new FormControl(this.selectedProtocol.name, Validators.required),
       protocolServer: new FormControl('', Validators.nullValidator),
     });
   }
 
-  private setSelectedProtocol() {
+  private  setSelectedProtocol() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id == null) {
-      this.selectedProtocol = {id: null, name: 'Nový protokol', activeSrv: null, date: null};
+      this.selectedProtocol = {_id: null, name: 'Nový protokol', activeSrv: null, date: null};
     } else {
-      this.protocolService.getProtocol(Number(id)).subscribe(protocol => this.selectedProtocol = protocol);
+      this.protocolService.getProtocol(id).subscribe((data: any) => {
+        this.selectedProtocol = data.data;
+        this.createFrom();
+      });
     }
   }
 
   private getServers() {
-    this.serverService.getServers().subscribe(server => this.servers = server);
+    this.serverService.getServers().subscribe((data: any) => {
+      this.servers = data.data;
+    });
   }
 
   getServer(id): Server {
@@ -64,8 +71,8 @@ export class ProtocolDetailComponent implements OnInit {
     return this.selectedServer;
   }
 
-  private getDevices() {
-    this.deviceService.getByProtocol(this.selectedProtocol.id).subscribe((data: any)=>{
+  private async getDevices() {
+    await this.deviceService.getByProtocol(this.selectedProtocol._id).subscribe((data: any) => {
       this.devices = data.data;
     });
   }

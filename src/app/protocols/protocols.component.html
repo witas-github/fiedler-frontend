@@ -23,10 +23,10 @@
 			<tr *ngFor="let protocol of protocols">
 <!--				<th scope="row">{{protocol.id}}</th>-->
 				<td>{{protocol.name}}</td>
-				<td>{{getServer(protocol.activeSrv).name}}</td>
+<!--				<td>{{getServer(protocol.activeSrv).name}}</td>-->
 				<td>{{protocol.date | date}}</td>
 				<td>
-					<mat-icon class="mr-2 cursor-pointer" aria-hidden="false" aria-label="Upravit protokol" routerLink="/protocol-detail/{{protocol.id}}">edit</mat-icon>
+					<mat-icon class="mr-2 cursor-pointer" aria-hidden="false" aria-label="Upravit protokol" routerLink="/protocol-detail/{{protocol._id}}">edit</mat-icon>
 				</td>
 			</tr>
 			</tbody>
