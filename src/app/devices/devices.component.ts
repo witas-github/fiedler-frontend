@@ -77,7 +77,7 @@ export class DevicesComponent implements OnInit {
     const device: any = this.deviceService.getBySrn(resultString);
 
     if (!this.selectedDevices.find(x => x.id === device.id)) {
-      device.protocolId = this.selectedProtocol._id;
+      device.protocolId = this.selectedProtocol.id;
       this.selectedDevices.push(device);
       this.deviceService.addIntoList(device);
       this.messageService.add(device.srn + ' added into list');

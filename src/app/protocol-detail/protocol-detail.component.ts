@@ -44,17 +44,18 @@ export class ProtocolDetailComponent implements OnInit {
   private createFrom(){
     this.form = new FormGroup({
       protocolName: new FormControl(this.selectedProtocol.name, Validators.required),
-      protocolServer: new FormControl('', Validators.nullValidator),
+      protocolServer: new FormControl(this.selectedProtocol.activeServer.name, Validators.nullValidator),
     });
   }
 
   private  setSelectedProtocol() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id == null) {
-      this.selectedProtocol = {_id: null, name: 'Nový protokol', activeSrv: null, date: null};
+      this.selectedProtocol = {id: null, name: 'Nový protokol', activeServer: null, date: null};
+      this.createFrom();
     } else {
       this.protocolService.getProtocol(id).subscribe((data: any) => {
-        this.selectedProtocol = data.data;
+        this.selectedProtocol = data.data[0];
         this.createFrom();
       });
     }
@@ -72,7 +73,7 @@ export class ProtocolDetailComponent implements OnInit {
   }
 
   private async getDevices() {
-    await this.deviceService.getByProtocol(this.selectedProtocol._id).subscribe((data: any) => {
+    await this.deviceService.getByProtocol(this.selectedProtocol.id).subscribe((data: any) => {
       this.devices = data.data;
     });
   }

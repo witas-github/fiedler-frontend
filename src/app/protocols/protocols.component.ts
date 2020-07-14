@@ -32,14 +32,12 @@ export class ProtocolsComponent implements OnInit {
   getServers(): void {
     this.serverService.getServers().subscribe((data: any) => {
       this.servers = data.data;
-      console.log(this.servers);
     })
   }
 
-  // getServer(id): Server {
-  //   this.serverService.getServer(id).subscribe(s => this.selectedServer = s);
-  //   return this.selectedServer;
-  // }
+  getServer(id): Server {
+    return this.servers[id];
+  }
 
 }
 

@@ -14,17 +14,15 @@ export class ProtocolService {
   constructor(private configService: ConfigService, private http: HttpClient) { }
 
   public getProtocols(): Observable<Protocol[]> {
-    //return of(Protocols);
-    return this.http.get<Protocol[]>(this.configService.getConfig().backendUrl + 'protocols/').pipe(map((response: any) => response));
+    return this.http.get<Protocol[]>(this.configService.getConfig().backendUrl + 'protocols/');
   }
 
   public getProtocol(id): Observable<Protocol> {
-    //return of(Protocols.find(x => x.id === id));
-    return this.http.get<Protocol>(this.configService.getConfig().backendUrl + 'protocols/' + id).pipe(map((response: any) => response));
+    return this.http.get<Protocol>(this.configService.getConfig().backendUrl + 'protocols/' + id);
   }
 
   public initProtocol(){
-    const protocol: Protocol = { _id: null, name: 'Nový protokol', activeSrv: null, date: new Date() };
+    const protocol: Protocol = { id: null, name: 'Nový protokol', activeServer: null, date: new Date() };
     return protocol;
   }
 

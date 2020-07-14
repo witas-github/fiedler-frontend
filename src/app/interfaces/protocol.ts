@@ -1,6 +1,8 @@
+import { Server } from './server';
+
 export interface Protocol{
-  _id: string;
+  id: string;
   name: string;
-  activeSrv: number;
+  activeServer: Server;
   date: any;
 }
