@@ -19,6 +19,9 @@ export class ServersComponent implements OnInit {
   }
 
   getServers(): void {
-    this.serverService.getServers().subscribe(server => this.servers = server);
+    this.serverService.getAll().subscribe((data: any) => {
+      this.servers = data.data;
+    });
+
   }
 }

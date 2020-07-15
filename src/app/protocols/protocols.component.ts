@@ -13,30 +13,18 @@ import { Server } from '../interfaces/server';
 export class ProtocolsComponent implements OnInit {
 
   protocols: Protocol[];
-  servers: Server[];
 
   constructor(private protocolService: ProtocolService, private serverService: ServerService) {
   }
 
   ngOnInit(): void {
     this.getProtocols();
-    this.getServers();
   }
 
   getProtocols(): void {
-    this.protocolService.getProtocols().subscribe((data: any) => {
+    this.protocolService.getAll().subscribe((data: any) => {
       this.protocols = data.data;
     });
-  }
-
-  getServers(): void {
-    this.serverService.getServers().subscribe((data: any) => {
-      this.servers = data.data;
-    })
-  }
-
-  getServer(id): Server {
-    return this.servers[id];
   }
 
 }

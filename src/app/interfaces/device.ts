@@ -1,9 +1,12 @@
+import { Server } from './server';
+import { Protocol } from './protocol';
+
 export interface Device{
   id: number;
   srn: string;
-  regServer: number;
-  activeServer: number;
+  registeredServer: Server;
+  activeServer: Server;
   date: any;
   state: number;
-  protocolId: number;
+  protocol: Protocol;
 }

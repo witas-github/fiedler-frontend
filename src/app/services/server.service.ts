@@ -13,17 +13,29 @@ export class ServerService {
 
   constructor(private readonly configService: ConfigService, private readonly http: HttpClient) { }
 
-  public  getServers(): Observable<Server[]> {
-    return this.http.get<Server[]>(this.configService.getConfig().backendUrl + 'servers/').pipe(map((response: any) => response));
+  public getAll(): Observable<Server[]> {
+    return this.http.get<Server[]>(this.configService.getConfig().backendUrl + 'servers/');
   }
 
-  public getServer(id): Observable<Server> {
-    return this.http.get<Server>(this.configService.getConfig().backendUrl + 'servers/' + id).pipe(map((response: any) => response));
+  public getOne(id): Observable<Server> {
+    return this.http.get<Server>(this.configService.getConfig().backendUrl + 'servers/' + id);
   }
 
-  public initServer(){
-    const server: Server = { id: null, name: 'Nový protokol', url: null, date: new Date() };
-    return server;
+  public update(id, values: any){
+    return this.http.patch(this.configService.getConfig().backendUrl + 'servers/' + id, values)
+  }
+
+  public create(values: any){
+    return this.http.post(this.configService.getConfig().backendUrl + 'servers/', values);
+  }
+
+  static empty(){
+    return new class implements Server {
+      date: any;
+      id: string;
+      name: string;
+      url: string;
+    };
   }
 
 }

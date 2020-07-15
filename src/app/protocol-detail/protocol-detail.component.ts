@@ -7,9 +7,10 @@ import { ServerService } from '../services/server.service';
 import { Server } from '../interfaces/server';
 import { Device } from '../interfaces/device';
 import { DeviceService } from '../services/device.service';
-import { Observable, of } from 'rxjs';
-import { Req } from '../interfaces/req';
-
+import { MessageList } from '../messages/messages.list';
+import { MessageService } from '../services/message.service';
+import { Message } from '../interfaces/message';
+import { MessageType } from '../messages/messages.types';
 
 @Component({
   selector: 'app-protocol-detail',
@@ -22,7 +23,8 @@ export class ProtocolDetailComponent implements OnInit {
     private protocolService: ProtocolService,
     private route: ActivatedRoute,
     private serverService: ServerService,
-    private deviceService: DeviceService) {
+    private deviceService: DeviceService,
+    private messageService: MessageService) {
   }
 
   get f() {
@@ -31,7 +33,6 @@ export class ProtocolDetailComponent implements OnInit {
 
   selectedProtocol: Protocol;
 
-  selectedServer: Server;
   servers: Server[];
   devices: Device[];
   form: FormGroup;
@@ -41,35 +42,32 @@ export class ProtocolDetailComponent implements OnInit {
     this.setSelectedProtocol();
   }
 
-  private createFrom(){
+  private createFrom() {
     this.form = new FormGroup({
-      protocolName: new FormControl(this.selectedProtocol.name, Validators.required),
-      protocolServer: new FormControl(this.selectedProtocol.activeServer.name, Validators.nullValidator),
+      name: new FormControl(this.selectedProtocol.name, Validators.required),
+      server: new FormControl(this.selectedProtocol.activeServer.name, Validators.nullValidator),
     });
   }
 
-  private  setSelectedProtocol() {
+  private setSelectedProtocol() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id == null) {
-      this.selectedProtocol = {id: null, name: 'Nový protokol', activeServer: null, date: null};
+      this.selectedProtocol = {id: null, name: 'Nový protokol', activeServer: ServerService.empty(), date: null};
       this.createFrom();
+      this.getDevices();
     } else {
-      this.protocolService.getProtocol(id).subscribe((data: any) => {
+      this.protocolService.getOne(id).subscribe((data: any) => {
         this.selectedProtocol = data.data[0];
         this.createFrom();
+        this.getDevices();
       });
     }
   }
 
   private getServers() {
-    this.serverService.getServers().subscribe((data: any) => {
+    this.serverService.getAll().subscribe((data: any) => {
       this.servers = data.data;
     });
-  }
-
-  getServer(id): Server {
-    this.serverService.getServer(id).subscribe(s => this.selectedServer = s);
-    return this.selectedServer;
   }
 
   private async getDevices() {
@@ -79,7 +77,19 @@ export class ProtocolDetailComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.form.value);
+    const id = this.route.snapshot.paramMap.get('id');
+
+    if (id === null) {
+      this.protocolService.create(this.form.value).subscribe(
+        data => this.messageService.add(MessageList.saved,'success'),
+        error => this.messageService.add(error.error.message[0],'danger'),
+      );
+    } else {
+      this.protocolService.update(id, this.form.value).subscribe(
+        data => this.messageService.add(MessageList.saved,'success'),
+        error => this.messageService.add(error.error.message[0],'danger'),
+      );
+    }
   }
 
 }

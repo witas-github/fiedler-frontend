@@ -8,6 +8,7 @@ import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 import { Device } from '../interfaces/device';
 import { DeviceService } from '../services/device.service';
 import { MessageService } from '../services/message.service';
+import { MessageList } from '../messages/messages.list';
 
 @Component({
   selector: 'app-devices',
@@ -49,7 +50,7 @@ export class DevicesComponent implements OnInit {
 
   private setSelectedProtocol() {
     const protocolId = this.route.snapshot.paramMap.get('protocolId');
-    this.protocolService.getProtocol(protocolId).subscribe(protocol => this.selectedProtocol = protocol);
+    this.protocolService.getOne(protocolId).subscribe(protocol => this.selectedProtocol = protocol);
   }
 
   clearResult(): void {
@@ -80,7 +81,7 @@ export class DevicesComponent implements OnInit {
       device.protocolId = this.selectedProtocol.id;
       this.selectedDevices.push(device);
       this.deviceService.addIntoList(device);
-      this.messageService.add(device.srn + ' added into list');
+      this.messageService.add(device.srn + ' added into list','success');
     }
 
     //console.log(this.selectedDevices);

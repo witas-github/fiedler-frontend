@@ -1,8 +1,16 @@
 <div class="container-fluid">
 	<div class="row mt-3">
-		<a class="btn btn-secondary mr-0 mr-auto button-with-icon" routerLink="/servers" role="button">
-			<mat-icon class="mr-2" aria-hidden="false" aria-label="Přidat protokol">undo</mat-icon>
-			Zpět</a>
+		<div class="btn-group ml-0 mr-auto" role="group" aria-label="First group">
+			<a class="btn btn-secondary ml-0 mr-2 button-with-icon" routerLink="/servers" role="button">
+				<mat-icon class="mr-2" aria-hidden="false" aria-label="Zpět">undo</mat-icon>
+				Zpět</a>
+
+			<button *ngIf="form" class="btn btn-primary button-with-icon ml-0 mr-2" type="submit" form="serverDetailForm" [disabled]="!form.valid">
+				<mat-icon class="mr-2" aria-hidden="false" aria-label="Přidat server">save</mat-icon>
+				Uložit
+			</button>
+		</div>
+
 	</div>
 </div>
 
@@ -11,26 +19,19 @@
 		<h1>Detail nastavení serveru</h1>
 	</div>
 
-	<form [formGroup]="form" (ngSubmit)="submit()">
+	<form *ngIf="form" [formGroup]="form" (ngSubmit)="submit()" id="serverDetailForm">
 		<div class="form-group">
-			<label for="serverName">Název protokolu:</label>
-			<input id="serverName" formControlName="serverName" type="text" class="form-control" />
-			<div *ngIf="f.serverName.touched && f.serverName.invalid" class="alert alert-danger">
-				<div *ngIf="f.serverName.errors.required">Je požadován název.</div>
+			<label for="name">Název serveru:</label>
+			<input id="name" formControlName="name" type="text" class="form-control"/>
+			<div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
+				<div *ngIf="f.name.errors.required">Je požadován název.</div>
 			</div>
 
-			<label for="serverUrl">Url serveru:</label>
-			<input id="serverUrl" formControlName="serverUrl" type="text" class="form-control" />
-			<div *ngIf="f.serverUrl.touched && f.serverUrl.invalid" class="alert alert-danger">
-				<div *ngIf="f.serverUrl.errors.required">Je požadován název.</div>
+			<label for="url">Url serveru:</label>
+			<input id="url" formControlName="url" type="text" class="form-control"/>
+			<div *ngIf="f.url.touched && f.url.invalid" class="alert alert-danger">
+				<div *ngIf="f.url.errors.required">Je požadována adresa serveru.</div>
 			</div>
-		</div>
-
-		<div class="row mt-4">
-			<button class="btn btn-primary button-with-icon ml-auto mr-3 button-with-icon" type="submit" [disabled]="!form.valid">
-				<mat-icon class="mr-2" aria-hidden="false" aria-label="Přidat protokol">save</mat-icon>
-				Uložit
-			</button>
 		</div>
 	</form>
 </div>

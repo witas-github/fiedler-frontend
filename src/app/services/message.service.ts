@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Message } from '../interfaces/message';
 
 @Injectable({
   providedIn: 'root'
@@ -7,9 +8,10 @@ export class MessageService {
 
   constructor() { }
 
-  messages: string[] = [];
+  messages: Message[] = [];
 
-  add(message: string) {
+  add(text: string, messageType: string) {
+    const message: Message = { text, messageType };
     this.messages.push(message);
   }
 
@@ -17,7 +19,7 @@ export class MessageService {
     this.messages = [];
   }
 
-  close(message: string) {
+  close(message: Message) {
     this.messages.splice(this.messages.indexOf(message), 1);
   }
 
