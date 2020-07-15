@@ -45,19 +45,24 @@ export class ProtocolDetailComponent implements OnInit {
   private createFrom() {
     this.form = new FormGroup({
       name: new FormControl(this.selectedProtocol.name, Validators.required),
-      server: new FormControl(this.selectedProtocol.activeServer.name, Validators.nullValidator),
+      activeServer: new FormControl(this.selectedProtocol.activeServer.id, Validators.nullValidator),
     });
   }
 
   private setSelectedProtocol() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id == null) {
-      this.selectedProtocol = {id: null, name: 'Nový protokol', activeServer: ServerService.empty(), date: null};
+      this.selectedProtocol = {id: null, name: 'Nový protokol', activeServer: ServerService.empty(), createdAt: new Date()};
       this.createFrom();
       this.getDevices();
     } else {
       this.protocolService.getOne(id).subscribe((data: any) => {
         this.selectedProtocol = data.data[0];
+
+        if (this.selectedProtocol.activeServer === undefined){
+          this.selectedProtocol.activeServer = ServerService.empty();
+        }
+
         this.createFrom();
         this.getDevices();
       });

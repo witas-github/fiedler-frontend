@@ -24,7 +24,7 @@
 <!--				<th scope="row">{{protocol.id}}</th>-->
 				<td>{{protocol.name}}</td>
 				<td><span *ngIf="protocol.activeServer!==undefined">{{protocol.activeServer.name}}</span></td>
-				<td>{{protocol.date | date}}</td>
+				<td>{{protocol.createdAt | date}}</td>
 				<td>
 					<mat-icon class="mr-2 cursor-pointer" aria-hidden="false" aria-label="Upravit protokol" routerLink="/protocol-detail/{{protocol.id}}">edit</mat-icon>
 				</td>

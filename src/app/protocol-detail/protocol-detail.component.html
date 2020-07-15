@@ -26,9 +26,9 @@
 		<div class="form-group">
 			<label for="name">Název protokolu:</label>
 			<input id="name" formControlName="name" type="text" class="form-control"/>
-			<label for="server">Server:</label>
-			<select id="server" formControlName="server" class="form-control">
-				<option *ngFor="let server of servers">{{server.name}}</option>
+			<label for="activeServer">Active server:</label>
+			<select id="activeServer" formControlName="activeServer" class="form-control">
+				<option *ngFor="let server of servers" value="{{server.id}}">{{server.name}}</option>
 			</select>
 			<div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
 				<div *ngIf="f.name.errors.required">Je požadován název.</div>

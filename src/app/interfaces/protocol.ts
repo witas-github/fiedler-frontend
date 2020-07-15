@@ -4,5 +4,5 @@ export interface Protocol{
   id: string;
   name: string;
   activeServer: Server;
-  date: any;
+  createdAt: Date;
 }
