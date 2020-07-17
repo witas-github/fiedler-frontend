@@ -19,7 +19,6 @@ const routes: Routes = [
 
   { path: 'device-detail/:id', component: DeviceDetailComponent },
   { path: 'create-device/:protocolId', component: DeviceDetailComponent },
-  { path: 'create-device', component: DeviceDetailComponent },
 
   { path: 'protocols', component: ProtocolsComponent },
   { path: 'servers', component: ServersComponent },

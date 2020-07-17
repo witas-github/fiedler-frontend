@@ -4,16 +4,20 @@ import { Server } from '../interfaces/server';
 import { ServerService } from '../services/server.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MessageService } from '../services/message.service';
-import { MessageList } from '../messages/messages.list'
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'app-server-detail',
   templateUrl: './server-detail.component.html',
   styleUrls: ['./server-detail.component.scss'],
 })
-export class ServerDetailComponent implements OnInit {
+export class ServerDetailComponent extends BaseComponent implements OnInit {
 
-  constructor(private serverService: ServerService, private route: ActivatedRoute, private messageService: MessageService) {
+  constructor(
+    private serverService: ServerService,
+    private route: ActivatedRoute,
+    messageService: MessageService) {
+    super(messageService);
   }
 
   get f() {
@@ -38,19 +42,7 @@ export class ServerDetailComponent implements OnInit {
 
   submit() {
     const id = this.route.snapshot.paramMap.get('id');
-
-    if (id === null) {
-      this.serverService.create(this.form.value).subscribe(
-        data => this.messageService.add(MessageList.saved, 'success'),
-        error => this.messageService.add(error.error.message[0], 'danger'),
-      );
-    } else {
-      this.serverService.update(id, this.form.value).subscribe(
-        data => this.messageService.add(MessageList.saved, 'success'),
-        error => this.messageService.add(error.error.message[0], 'danger'),
-      );
-    }
-
+    this.executeFormSubmit(this.serverService,id,this.form.value);
   }
 
   private setSelectedServer() {

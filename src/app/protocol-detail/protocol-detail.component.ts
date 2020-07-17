@@ -11,20 +11,23 @@ import { MessageList } from '../messages/messages.list';
 import { MessageService } from '../services/message.service';
 import { Message } from '../interfaces/message';
 import { MessageType } from '../messages/messages.types';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'app-protocol-detail',
   templateUrl: './protocol-detail.component.html',
   styleUrls: ['./protocol-detail.component.scss'],
 })
-export class ProtocolDetailComponent implements OnInit {
+export class ProtocolDetailComponent extends BaseComponent implements OnInit {
 
   constructor(
     private protocolService: ProtocolService,
     private route: ActivatedRoute,
     private serverService: ServerService,
     private deviceService: DeviceService,
-    private messageService: MessageService) {
+    messageService: MessageService) {
+
+    super(messageService);
   }
 
   get f() {
@@ -83,18 +86,7 @@ export class ProtocolDetailComponent implements OnInit {
 
   submit() {
     const id = this.route.snapshot.paramMap.get('id');
-
-    if (id === null) {
-      this.protocolService.create(this.form.value).subscribe(
-        data => this.messageService.add(MessageList.saved,'success'),
-        error => this.messageService.add(error.error.message[0],'danger'),
-      );
-    } else {
-      this.protocolService.update(id, this.form.value).subscribe(
-        data => this.messageService.add(MessageList.saved,'success'),
-        error => this.messageService.add(error.error.message[0],'danger'),
-      );
-    }
+    this.executeFormSubmit(this.protocolService, id, this.form.value);
   }
 
 }

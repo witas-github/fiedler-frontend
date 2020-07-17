@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { Server } from '../interfaces/server';
 import { Protocol } from '../interfaces/protocol';
 import { ServerService } from './server.service';
+import { ProtocolService } from './protocol.service';
 
 
 
@@ -35,14 +36,22 @@ export class DeviceService {
     return this.http.get<Device>(this.configService.getConfig().backendUrl + 'devices/srn' + id).pipe(map((response: any) => response));
   }
 
-  public addIntoList(device: Device){
-    const headers = { 'Content-Type': 'application/json' };
-    console.log(device);
-    //const body = device;
+  // public addIntoList(device: Device){
+  //   const headers = { 'Content-Type': 'application/json' };
+  //   console.log(device);
+  //   //const body = device;
+  //
+  //   this.http.post<any>(this.configService.getConfig().backendUrl + 'devices', device, { headers }).subscribe(data => {
+  //     this.postId = data.id;
+  //   })
+  // }
 
-    this.http.post<any>(this.configService.getConfig().backendUrl + 'devices', device, { headers }).subscribe(data => {
-      this.postId = data.id;
-    })
+  public update(id, values: any){
+    return this.http.patch(this.configService.getConfig().backendUrl + 'devices/' + id, values)
+  }
+
+  public create(values: any){
+    return this.http.post(this.configService.getConfig().backendUrl + 'devices/', values);
   }
 
   static empty(){
@@ -50,7 +59,7 @@ export class DeviceService {
       activeServer: Server = ServerService.empty();
       createdAt: Date;
       id: number;
-      protocol: Protocol;
+      protocol: Protocol = ProtocolService.empty();
       registeredServer: Server = ServerService.empty();
       srn: string;
       state: number;

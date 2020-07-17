@@ -17,6 +17,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { HttpClientModule } from '@angular/common/http';
 import { DeviceDetailComponent } from './device-detail/device-detail.component';
+import { BaseComponent } from './base/base.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { DeviceDetailComponent } from './device-detail/device-detail.component';
     DevicesComponent,
     PageNotFoundComponent,
     DeviceDetailComponent,
+    BaseComponent,
   ],
   imports: [
     BrowserModule,
