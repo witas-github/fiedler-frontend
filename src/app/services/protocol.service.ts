@@ -30,12 +30,16 @@ export class ProtocolService {
     return this.http.post(this.configService.getConfig().backendUrl + 'protocols/', values);
   }
 
+  public delete(id){
+
+  }
+
   static empty(){
     return new class implements Protocol {
       id: string;
       name: string;
       activeServer: Server;
-      date: any;
+      createdAt: Date;
     };
   }
 

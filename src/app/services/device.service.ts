@@ -4,6 +4,9 @@ import { Device } from '../interfaces/device';
 import { ConfigService } from './config.service';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Server } from '../interfaces/server';
+import { Protocol } from '../interfaces/protocol';
+import { ServerService } from './server.service';
 
 
 
@@ -16,11 +19,11 @@ export class DeviceService {
 
   constructor(private configService: ConfigService, private http: HttpClient) { }
 
-  public getDevices(): Observable<Device[]> {
+  public getAll(): Observable<Device[]> {
     return this.http.get<Device>(this.configService.getConfig().backendUrl + 'devices/').pipe(map((response: any) => response));
   }
 
-  public getDevice(id): Observable<Device> {
+  public getOne(id): Observable<Device> {
     return this.http.get<Device>(this.configService.getConfig().backendUrl + 'devices/' + id).pipe(map((response: any) => response));
   }
 
@@ -40,6 +43,18 @@ export class DeviceService {
     this.http.post<any>(this.configService.getConfig().backendUrl + 'devices', device, { headers }).subscribe(data => {
       this.postId = data.id;
     })
+  }
+
+  static empty(){
+    return new class implements Device{
+      activeServer: Server = ServerService.empty();
+      createdAt: Date;
+      id: number;
+      protocol: Protocol;
+      registeredServer: Server = ServerService.empty();
+      srn: string;
+      state: number;
+    }
   }
 
 }

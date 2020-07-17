@@ -6,7 +6,7 @@ export interface Device{
   srn: string;
   registeredServer: Server;
   activeServer: Server;
-  date: any;
+  createdAt: Date;
   state: number;
   protocol: Protocol;
 }
