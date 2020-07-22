@@ -46,8 +46,10 @@ export class ProtocolDetailComponent extends BaseComponent implements OnInit {
   }
 
   private createFrom() {
+    console.log(this.selectedProtocol);
     this.form = new FormGroup({
       name: new FormControl(this.selectedProtocol.name, Validators.required),
+      registeredServer: new FormControl(this.selectedProtocol.registeredServer.id, Validators.nullValidator),
       activeServer: new FormControl(this.selectedProtocol.activeServer.id, Validators.nullValidator),
     });
   }
@@ -55,16 +57,27 @@ export class ProtocolDetailComponent extends BaseComponent implements OnInit {
   private setSelectedProtocol() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id == null) {
-      this.selectedProtocol = {id: null, name: 'Nový protokol', activeServer: ServerService.empty(), createdAt: new Date()};
+      this.selectedProtocol = {
+        id: null,
+        name: 'Nový protokol',
+        activeServer: ServerService.empty(),
+        registeredServer: ServerService.empty(),
+        createdAt: new Date(),
+      };
       this.createFrom();
       this.getDevices();
     } else {
       this.protocolService.getOne(id).subscribe((data: any) => {
         this.selectedProtocol = data.data[0];
 
-        if (this.selectedProtocol.activeServer === undefined){
+        if (this.selectedProtocol.activeServer === undefined) {
           this.selectedProtocol.activeServer = ServerService.empty();
         }
+
+        if (this.selectedProtocol.registeredServer === undefined || this.selectedProtocol.registeredServer === null) {
+          this.selectedProtocol.registeredServer = ServerService.empty();
+        }
+
 
         this.createFrom();
         this.getDevices();

@@ -39,6 +39,7 @@ export class ProtocolService {
       id: string;
       name: string;
       activeServer: Server;
+      registeredServer: Server;
       createdAt: Date;
     };
   }

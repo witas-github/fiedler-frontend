@@ -9,6 +9,7 @@ import { Device } from '../interfaces/device';
 import { DeviceService } from '../services/device.service';
 import { MessageService } from '../services/message.service';
 import { MessageList } from '../messages/messages.list';
+import { Server } from '../interfaces/server';
 
 @Component({
   selector: 'app-devices',
@@ -45,12 +46,21 @@ export class DevicesComponent implements OnInit {
   tryHarder = false;
 
   ngOnInit(): void {
-    this.setSelectedProtocol();
+    const protocolId = this.route.snapshot.paramMap.get('protocolId');
+    this.setSelectedProtocol(protocolId);
+    this.setSelectedDevices(protocolId);
   }
 
-  private setSelectedProtocol() {
-    const protocolId = this.route.snapshot.paramMap.get('protocolId');
-    this.protocolService.getOne(protocolId).subscribe(protocol => this.selectedProtocol = protocol);
+  private setSelectedProtocol(protocolId: string) {
+    this.protocolService.getOne(protocolId).subscribe((data: any) => {
+      this.selectedProtocol = data.data[0];
+    });
+  }
+
+  private setSelectedDevices(protocolId: any) {
+    this.deviceService.getByProtocol(protocolId).subscribe((data: any) => {
+      this.selectedDevices = data.data;
+    });
   }
 
   clearResult(): void {
@@ -73,15 +83,45 @@ export class DevicesComponent implements OnInit {
 
   }
 
+  private createDevice(srn: string){
+    return new class implements Device {
+      activeServer: Server;
+      createdAt: Date = new Date();
+      id: number;
+      protocol: Protocol;
+      registeredServer: Server;
+      srn: string = srn;
+      state: number = 0;
+    };
+  }
+
   onCodeResult(resultString: string) {
     this.qrResultString = resultString;
-    const device: any = this.deviceService.getBySrn(resultString);
 
-    if (!this.selectedDevices.find(x => x.id === device.id)) {
-      device.protocolId = this.selectedProtocol.id;
+    const device: Device = this.createDevice(resultString);
+
+    if (!this.selectedDevices.find(x => x.srn === device.srn)) {
+      device.protocol = this.selectedProtocol;
+      device.registeredServer = this.selectedProtocol.registeredServer;
+
       this.selectedDevices.push(device);
-      this.deviceService.create(device);
-      this.messageService.add(device.srn + ' added into list','success');
+      this.deviceService.create({
+        srn:device.srn,
+        registeredServer:device.registeredServer.id,
+        state:device.state,
+        activeServer:null,
+        protocol:device.protocol.id
+      }).subscribe(
+        data => this.messageService.add(MessageList.saved,'success'),
+        error => console.log(error.error),
+      );
+
+      console.log(device);
+      console.log(this.selectedDevices);
+
+      this.messageService.add(device.srn + ' added into list', 'success');
+    }else{
+      this.messageService.add(device.srn + ' is already on list', 'danger');
     }
 
     //console.log(this.selectedDevices);

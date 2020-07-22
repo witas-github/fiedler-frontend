@@ -3,22 +3,22 @@
 		<div class="btn-group ml-0 mr-auto" role="group" aria-label="First group">
 			<a class="btn btn-secondary ml-0 mr-2 button-with-icon" routerLink="/protocols" role="button">
 				<mat-icon class="mr-2" aria-hidden="false" aria-label="Přidat protokol">undo</mat-icon>
-				Zpět</a>
+				Back</a>
 
 			<button *ngIf="form" class="btn btn-primary button-with-icon ml-0 mr-2" type="submit" form="protocolDetailForm" [disabled]="!form.valid">
 				<mat-icon class="mr-2" aria-hidden="false" aria-label="Uložit">save</mat-icon>
-				Uložit
+				Save
 			</button>
 
 			<a *ngIf="selectedProtocol" class="btn btn-primary ml-0 mr-2 button-with-icon d-none d-lg-inline-flex"
 			   routerLink="/devices/protocol/{{selectedProtocol.id}}" role="button">
 				<mat-icon class="mr-2" aria-hidden="false" aria-label="Naskenovat zařízení">qr_code_scanner</mat-icon>
-				Naskenovat zařízení</a>
+				Scan device</a>
 
 			<a *ngIf="selectedProtocol" class="btn btn-primary ml-0 button-with-icon d-none d-lg-inline-flex"
 			   routerLink="/create-device/{{selectedProtocol.id}}" role="button">
 				<mat-icon class="mr-2" aria-hidden="false" aria-label="Přidat zařízení">my_library_add</mat-icon>
-				Přidat zařízení ručně</a>
+				Add device manually</a>
 
 		</div>
 		<div class="d-lg-none btn-group ml-auto mr-0 pull-right" role="group" aria-label="Second group">
@@ -44,8 +44,14 @@
 
 	<form *ngIf="form" class="mt-2" [formGroup]="form" (ngSubmit)="submit()" id="protocolDetailForm">
 		<div class="form-group">
-			<label for="name">Název protokolu:</label>
+			<label for="name">Protocol name:</label>
 			<input id="name" formControlName="name" type="text" class="form-control"/>
+
+			<label for="registeredServer">Default server:</label>
+			<select id="registeredServer" formControlName="registeredServer" class="form-control">
+				<option *ngFor="let server of servers" value="{{server.id}}">{{server.name}}</option>
+			</select>
+
 			<label for="activeServer">Active server:</label>
 			<select id="activeServer" formControlName="activeServer" class="form-control">
 				<option *ngFor="let server of servers" value="{{server.id}}">{{server.name}}</option>
@@ -53,6 +59,7 @@
 			<div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
 				<div *ngIf="f.name.errors.required">Je požadován název.</div>
 			</div>
+
 		</div>
 
 		<div class="row mt-4">
@@ -61,7 +68,7 @@
 				<tr>
 					<th scope="col">Srn</th>
 <!--					<th scope="col">Registrovaný server</th>-->
-					<th scope="col">Aktivní server</th>
+					<th scope="col">Active server</th>
 					<th></th>
 				</tr>
 				</thead>
