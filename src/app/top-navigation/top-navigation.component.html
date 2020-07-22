@@ -1,19 +1,19 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
 	<a class="navbar-brand" href="#"></a>
-	<button class="navbar-toggler hidden-sm" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false"
-	        aria-label="Toggle navigation">
+	<button class="navbar-toggler hidden-sm" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed"
+	        data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
 	<div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbarsDefault">
 		<ul ngbNav #nav="ngbNav" class="navbar-nav mr-auto mt-3 mt-lg-0">
 			<li ngbNavItem (click)="isNavbarCollapsed = !isNavbarCollapsed">
-				<a class="nav-link float-right" routerLink="protocols">Protokoly</a>
+				<a class="nav-link float-right" routerLink="protocols">Protocols</a>
 				<ng-template ngbNavContent>
 					<app-protocols></app-protocols>
 				</ng-template>
 			</li>
 			<li ngbNavItem (click)="isNavbarCollapsed = !isNavbarCollapsed">
-				<a class="nav-link float-right" routerLink="servers">Nastavení serverů</a>
+				<a class="nav-link float-right" routerLink="servers">Servers</a>
 				<ng-template ngbNavContent>
 					<app-servers></app-servers>
 				</ng-template>

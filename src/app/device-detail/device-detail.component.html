@@ -3,12 +3,12 @@
 		<div class="btn-group ml-0 mr-auto" role="group" aria-label="First group">
 			<a *ngIf="selectedProtocol" class="btn btn-secondary ml-0 mr-2 button-with-icon"
 			   routerLink="/protocol-detail/{{selectedProtocol.id}}" role="button">
-				<mat-icon class="mr-2" aria-hidden="false" aria-label="Přidat protokol">undo</mat-icon>
-				Zpět</a>
+				<mat-icon class="mr-2" aria-hidden="false" aria-label="Back">undo</mat-icon>
+				Back</a>
 
 			<button *ngIf="form" class="btn btn-primary button-with-icon ml-0 mr-2" type="submit" form="protocolDetailForm" [disabled]="!form.valid">
-				<mat-icon class="mr-2" aria-hidden="false" aria-label="Uložit">save</mat-icon>
-				Uložit
+				<mat-icon class="mr-2" aria-hidden="false" aria-label="Save">save</mat-icon>
+				Save
 			</button>
 		</div>
 	</div>
@@ -16,21 +16,21 @@
 
 <div class="container-fluid">
 	<div class="row mt-3 mt-lg-3 mb-lg-0 border-bottom">
-		<h1>Detail zařízení</h1>
+		<h1>Device detail</h1>
 	</div>
 
 	<form *ngIf="form" class="mt-2" [formGroup]="form" (ngSubmit)="submit()" id="protocolDetailForm">
 		<div class="form-group">
-			<label for="srn">Seriové číslo:</label>
+			<label for="srn">Serioal number:</label>
 			<input id="srn" formControlName="srn" type="text" class="form-control"/>
 
-			<label for="registeredServer">Registrovaný server:</label>
+			<label for="registeredServer">Registered server:</label>
 			<select id="registeredServer" formControlName="registeredServer" class="form-control">
 				<option *ngFor="let server of servers" value="{{server.id}}">{{server.name}}</option>
 			</select>
 
 			<div *ngIf="f.srn.touched && f.srn.invalid" class="alert alert-danger">
-				<div *ngIf="f.srn.errors.required">Zadejte sériová číslo</div>
+				<div *ngIf="f.srn.errors.required">Serial number is required</div>
 			</div>
 		</div>
 

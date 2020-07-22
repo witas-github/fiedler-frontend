@@ -116,9 +116,6 @@ export class DevicesComponent implements OnInit {
         error => console.log(error.error),
       );
 
-      console.log(device);
-      console.log(this.selectedDevices);
-
       this.messageService.add(device.srn + ' added into list', 'success');
     }else{
       this.messageService.add(device.srn + ' is already on list', 'danger');

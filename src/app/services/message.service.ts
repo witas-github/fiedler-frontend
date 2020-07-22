@@ -13,6 +13,10 @@ export class MessageService {
   add(text: string, messageType: string) {
     const message: Message = { text, messageType };
     this.messages.push(message);
+
+    setTimeout(() => {
+      this.close(message);
+    }, 2000);
   }
 
   clear() {
