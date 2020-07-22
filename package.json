@@ -44,6 +44,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/mongoose": "^5.7.30",
     "@types/node": "^12.12.47",
+    "browser-sync": "^2.26.10",
     "codelyzer": "^5.1.2",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",

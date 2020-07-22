@@ -19,12 +19,27 @@
 			   routerLink="/create-device/{{selectedProtocol.id}}" role="button">
 				<mat-icon class="mr-2" aria-hidden="false" aria-label="Přidat zařízení">my_library_add</mat-icon>
 				Přidat zařízení ručně</a>
+
+		</div>
+		<div class="d-lg-none btn-group ml-auto mr-0 pull-right" role="group" aria-label="Second group">
+		<a *ngIf="selectedProtocol" class="btn btn-primary ml-auto mr-0 button-with-icon float-right"
+			   routerLink="/devices/protocol/{{selectedProtocol.id}}" role="button">
+				<mat-icon class="" aria-hidden="false" aria-label="Naskenovat zařízení">qr_code_scanner</mat-icon>
+			</a>
+
+			<a *ngIf="selectedProtocol" class="btn btn-primary ml-2 mr-0 button-with-icon float-right"
+			   routerLink="/create-device/{{selectedProtocol.id}}" role="button">
+				<mat-icon class="" aria-hidden="false" aria-label="Přidat zařízení ručně">add</mat-icon>
+			</a>
+
 		</div>
 	</div>
 </div>
 <div class="container-fluid">
 	<div class="row mt-3 mt-lg-3 mb-lg-0 border-bottom">
 		<h1>Detail protokolu</h1>
+
+
 	</div>
 
 	<form *ngIf="form" class="mt-2" [formGroup]="form" (ngSubmit)="submit()" id="protocolDetailForm">
@@ -45,18 +60,16 @@
 				<thead class="bg-gray">
 				<tr>
 					<th scope="col">Srn</th>
-					<th scope="col">Registrovaný server</th>
+<!--					<th scope="col">Registrovaný server</th>-->
 					<th scope="col">Aktivní server</th>
-					<th scope="col">Status</th>
 					<th></th>
 				</tr>
 				</thead>
 				<tbody class="protocols">
 				<tr *ngFor="let device of devices">
 					<td>{{device.srn}}</td>
-					<td><span *ngIf="device.registeredServer">{{device.registeredServer.name}}</span></td>
+<!--					<td><span *ngIf="device.registeredServer">{{device.registeredServer.name}}</span></td>-->
 					<td><span *ngIf="device.activeServer">{{device.activeServer.name}}</span></td>
-					<td></td>
 					<td>
 						<mat-icon class="mr-2 cursor-pointer" aria-hidden="false" aria-label="Upravit protokol" routerLink="/device-detail/{{device.id}}">edit</mat-icon>
 					</td>
@@ -67,20 +80,4 @@
 		</div>
 
 	</form>
-</div>
-
-<div class="container-fluid d-lg-none fixed-bottom">
-	<div class="row mb-3 mr-0">
-		<a *ngIf="selectedProtocol" class="btn btn-primary ml-auto mr-0 button-with-icon"
-		   routerLink="/devices/protocol/{{selectedProtocol.id}}" role="button">
-			<mat-icon class="" aria-hidden="false" aria-label="Naskenovat zařízení">qr_code_scanner</mat-icon>
-		</a>
-	</div>
-
-	<div class="row mb-3 mr-0">
-		<a *ngIf="selectedProtocol" class="btn btn-primary ml-auto mr-0 button-with-icon"
-		   routerLink="/create-device/{{selectedProtocol.id}}" role="button">
-			<mat-icon class="" aria-hidden="false" aria-label="Přidat zařízení ručně">add</mat-icon>
-		</a>
-	</div>
 </div>
