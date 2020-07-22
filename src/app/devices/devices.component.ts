@@ -113,7 +113,7 @@ export class DevicesComponent implements OnInit {
         protocol:device.protocol.id
       }).subscribe(
         data => this.messageService.add(MessageList.saved,'success'),
-        error => console.log(error.error),
+        error => this.messageService.add(error.error.message,'danger'),
       );
 
       this.messageService.add(device.srn + ' added into list', 'success');

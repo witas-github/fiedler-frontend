@@ -46,7 +46,7 @@ export class ProtocolDetailComponent extends BaseComponent implements OnInit {
   }
 
   private createFrom() {
-    console.log(this.selectedProtocol);
+    //console.log(this.selectedProtocol);
     this.form = new FormGroup({
       name: new FormControl(this.selectedProtocol.name, Validators.required),
       registeredServer: new FormControl(this.selectedProtocol.registeredServer.id, Validators.nullValidator),
@@ -59,7 +59,7 @@ export class ProtocolDetailComponent extends BaseComponent implements OnInit {
     if (id == null) {
       this.selectedProtocol = {
         id: null,
-        name: 'Nový protokol',
+        name: 'New protocol',
         activeServer: ServerService.empty(),
         registeredServer: ServerService.empty(),
         createdAt: new Date(),
@@ -77,7 +77,6 @@ export class ProtocolDetailComponent extends BaseComponent implements OnInit {
         if (this.selectedProtocol.registeredServer === undefined || this.selectedProtocol.registeredServer === null) {
           this.selectedProtocol.registeredServer = ServerService.empty();
         }
-
 
         this.createFrom();
         this.getDevices();
@@ -100,6 +99,21 @@ export class ProtocolDetailComponent extends BaseComponent implements OnInit {
   submit() {
     const id = this.route.snapshot.paramMap.get('id');
     this.executeFormSubmit(this.protocolService, id, this.form.value);
+    this.devices.forEach((device: Device) => {
+
+      this.devices = this.devices.filter(item => item !== device);
+      const activeServer: any = this.servers.filter(server => server.id === this.form.value.activeServer);
+      device.activeServer = activeServer[0];
+
+      this.deviceService.update(device.id,{
+        activeServer:this.form.value.activeServer,
+        srn:device.srn,
+        protocol:device.protocol.id,
+        registeredServer:device.registeredServer.id
+      }).subscribe();
+
+      this.devices.push(device);
+    });
   }
 
 }
